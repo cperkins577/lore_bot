@@ -1,6 +1,7 @@
 services:
   lorebot-api:
     build: .
+    image: cperkins577/lorebot-api:latest
     platform: linux/arm64
     container_name: lorebot_api
     command: node src/api/server.js
@@ -12,6 +13,7 @@ services:
 
   discord-bot:
     build: .
+    image: cperkins577/lorebot:latest
     platform: linux/arm64
     container_name: lorebot
     command: node src/bot/index.js
