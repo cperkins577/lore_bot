@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "run": "node src/api/app.js && node src/bot/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +19,9 @@
     "express": "^5.2.1",
     "mongoose": "^9.9.2"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "@types/ws": "^8.18.1"
+  }
 }

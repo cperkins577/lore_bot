@@ -35,7 +35,7 @@ for (const file of commandFiles) {
 
 //console.log(client.commands);
 client.on(Events.InteractionCreate, async (interaction) => {
-    //console.log(command);
+    console.log('Event received');
     if (!interaction.isChatInputCommand()) return;
     const command = client.commands.get(interaction.commandName);
     if (!command) {

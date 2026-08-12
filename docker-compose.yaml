@@ -1,0 +1,18 @@
+services:
+  lorebot-api:
+    build: .
+    container_name: lorebot_api
+    command: node src/api/server.js
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    restart: always
+
+  discord-bot:
+    build: .
+    container_name: lorebot
+    command: node src/bot/index.js
+    env_file:
+      - .env
+    restart: always

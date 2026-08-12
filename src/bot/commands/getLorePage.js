@@ -1,5 +1,4 @@
-import { SlashCommandBuilder } from 'discord.js';
-import app from './../../api/app.js';
+import {EmbedBuilder, SlashCommandBuilder} from 'discord.js';
 import { config } from "./../../api/config.js";
 
 export default {
@@ -20,7 +19,23 @@ export default {
             const response = await fetch(apiUrl);
             const data = await response.json();
             //const response = await app.get(`http://localhost:${config.port}/api/${interaction.options.getString('url')}`);
-            await interaction.editReply({ content: JSON.stringify(data) });
+
+            const entry = data[0];
+            const formattedTags = entry.tags.map(tag => `\`#${tag}\``).join(', ');
+
+            const embedCard = new EmbedBuilder()
+                .setColor(0x0099FF)
+                .setTitle(entry.title)
+                .setDescription(entry.summary)
+                .addFields(
+                    { name: 'Category', value: entry.category, inline: true },
+                    { name: 'Details', value: entry.body },
+                    { name: 'Tags', value: formattedTags || 'None'}
+                )
+                .setFooter({ text: `ID: ${entry._id}` });
+            //console.log(embedCard);
+            await interaction.editReply({ embeds: [embedCard] });
+            //await interaction.editReply({ content: `\`\`\`json\n${JSON.stringify(data, null, 2) }\n\`\`\``});
         } catch (err) {
             console.error(err);
             await interaction.editReply({ content: "There was an error trying to get Lore Page." });
