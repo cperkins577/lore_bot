@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:current-alpine
 LABEL authors="Cole Perkins"
 WORKDIR /src/
 

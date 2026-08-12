@@ -14,7 +14,7 @@ export default {
         await interaction.deferReply();
 
         try {
-            const apiUrl = `http://localhost:${config.port}/api/${interaction.options.getString('url')}`;
+            const apiUrl = `http://lorebot-api:${config.port}/api/${interaction.options.getString('url')}`;
             console.log(apiUrl);
             const response = await fetch(apiUrl);
             const data = await response.json();
