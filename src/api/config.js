@@ -10,4 +10,5 @@ export const config = {
     bot_token: process.env.DISCORD_TOKEN,
     bot_id: process.env.DISCORD_APP_ID,
     bot_pubkey: process.env.DISCORD_PUBLIC_KEY,
+    bot_guild_id: process.env.DEVELOPMENT_GUILD_ID,
 };
