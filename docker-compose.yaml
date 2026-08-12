@@ -1,6 +1,7 @@
 services:
   lorebot-api:
     build: .
+    platform: linux/arm64
     container_name: lorebot_api
     command: node src/api/server.js
     ports:
@@ -11,6 +12,7 @@ services:
 
   discord-bot:
     build: .
+    platform: linux/arm64
     container_name: lorebot
     command: node src/bot/index.js
     env_file:
