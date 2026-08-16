@@ -6,4 +6,6 @@ import godsRouter from './godsRouter.js';
 
 apiRouter.use('/gods', godsRouter);
 
+
+
 export default apiRouter;

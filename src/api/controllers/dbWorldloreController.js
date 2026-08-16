@@ -18,3 +18,13 @@ export const getEntryBySlug = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+export const getEntryById = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const entry = await db.findById({ _id: id });
+        res.json(entry);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
