@@ -1,4 +1,4 @@
-import {EmbedBuilder, SlashCommandBuilder} from 'discord.js';
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { config } from "./../../api/config.js";
 
 export default {
