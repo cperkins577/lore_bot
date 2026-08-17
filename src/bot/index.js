@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { Client, Collection, Events, GatewayIntentBits, MessageFlags } from 'discord.js';
+import {Client, Collection, EmbedBuilder, Events, GatewayIntentBits, MessageFlags} from 'discord.js';
 import { config } from './../api/config.js';
 import { fileURLToPath, pathToFileURL } from 'url';
 
@@ -36,6 +36,40 @@ for (const file of commandFiles) {
 //console.log(client.commands);
 client.on(Events.InteractionCreate, async (interaction) => {
     console.log('Event received');
+
+    if (interaction.isButton()) {
+        const [prefix, id] = interaction.customId.split(':');
+        // Will need to add checks for new categories.
+        if (prefix !== 'lore') return;
+        console.log(`Executing button with tag ${prefix}:${id}`);
+        try {
+            // Might have to move following operation to another file such as utils
+            const apiUrl = `http://lorebot-api:${config.port}/api/entries/${id}`;
+            const response = await fetch(apiUrl);
+            if (!response.ok) {
+                throw new Error(`API responded with status ${response.status}`);
+            }
+            const entry = await response.json();
+            const formattedTags = entry.tags.map(tag => `\`#${tag}\``).join(', ');
+
+            const embed = new EmbedBuilder()
+                .setColor(0x0099FF)
+                .setTitle(entry.title)
+                .setDescription(entry.summary)
+                .addFields(
+                    {name: 'Category', value: entry.category, inline: true},
+                    {name: 'Details', value: entry.body},
+                    {name: 'Tags', value: formattedTags || 'None'}
+                )
+                .setFooter({text: `ID: ${entry._id}`});
+
+            await interaction.reply({embeds: [embed], ephemeral: true});
+        } catch (err) {
+            await interaction.reply({ content: `There was an error. ${err}` });
+        }
+
+    }
+
     if (!interaction.isChatInputCommand()) return;
     const command = client.commands.get(interaction.commandName);
     if (!command) {

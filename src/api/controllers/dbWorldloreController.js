@@ -28,3 +28,12 @@ export const getEntryById = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+export const getDirectories = async (req, res) => {
+    try {
+        const directories = await db.find({ category: "Directory" }, { title: 1, summary: 1 });
+        res.json(directories);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}

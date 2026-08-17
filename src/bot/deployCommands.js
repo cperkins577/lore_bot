@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { REST, Routes } from 'discord.js';
 import { config } from './../api/config.js';
 import fs from 'node:fs';
@@ -28,7 +29,7 @@ const rest = new REST().setToken(config.bot_token);
         console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
         const data = await rest.put(
-            Routes.applicationCommands(config.bot_id),
+            Routes.applicationGuildCommands(config.bot_id, config.bot_guild_id),
             { body: commands }
         );
 
